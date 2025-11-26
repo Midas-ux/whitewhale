@@ -18,26 +18,26 @@ body {
     overflow-x: hidden;
 }
 
-/* Header — center menu */
+/* Header */
 header {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 20px 50px;
+    padding: 22px 50px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 20;
+    z-index: 30;
     background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(8px);
 }
 
 header nav a {
-    margin: 0 18px;
+    margin: 0 22px;
     text-decoration: none;
     color: #00eaff;
-    font-weight: 600;
-    font-size: 17px;
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: 0.5px;
     transition: 0.3s;
 }
 
@@ -46,51 +46,104 @@ header nav a:hover {
     text-shadow: 0 0 12px #00eaff;
 }
 
-/* Hero */
+/* Whale Canvas Background */
+#whaleCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+}
+
+/* Light rays */
+.light-rays {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 110%;
+    background: radial-gradient(circle at 50% -20%, rgba(0,200,255,0.25), transparent 70%);
+    opacity: 0.35;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: -5;
+    animation: rays 6s ease-in-out infinite alternate;
+}
+
+@keyframes rays {
+    0% { transform: translateX(-3%) rotate(-2deg); }
+    100% { transform: translateX(3%) rotate(2deg); }
+}
+
+/* Bubble container */
+.bubbles {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -4;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -100px;
+    width: 12px;
+    height: 12px;
+    background: rgba(180, 245, 255, 0.75);
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: bubbleRise 12s infinite ease-out;
+}
+
+@keyframes bubbleRise {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-140vh) scale(1.6); opacity: 0; }
+}
+
+/* Hero Section */
 .hero {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 20px;
-    position: relative;
     text-align: center;
+    padding: 0 20px;
     z-index: 5;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 86px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: #e8f9ff;
+    text-shadow: 0 0 28px #00baff;
 }
 
 .hero h2 {
-    font-size: 68px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: #e8f9ff;
-    text-shadow: 0 0 20px #00baff;
+    font-size: 40px;
+    font-weight: 400;
+    opacity: 0.92;
+    margin-bottom: 25px;
 }
 
 .hero p {
-    max-width: 750px;
     font-size: 22px;
-    opacity: 0.95;
+    max-width: 750px;
+    opacity: 0.9;
 }
 
-/* 3D Whale background */
-#whaleCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-}
-
-/* Section */
+/* Sections */
 .section {
     padding: 120px 40px;
     text-align: center;
 }
 
 .section h3 {
-    font-size: 40px;
+    font-size: 42px;
     margin-bottom: 30px;
     text-shadow: 0 0 14px #00e4ff;
 }
@@ -109,26 +162,8 @@ header nav a:hover {
 .tokenomics-table div {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 12px 0;
     font-size: 18px;
-}
-
-/* Socials */
-.socials {
-    margin-top: 35px;
-}
-
-.socials a {
-    margin: 0 15px;
-    font-size: 26px;
-    color: #00eaff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.socials a:hover {
-    transform: scale(1.2);
-    color: #4dffff;
 }
 
 /* Footer */
@@ -139,27 +174,14 @@ header nav a:hover {
     margin-top: 80px;
     opacity: 0.7;
 }
-
-    .logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 26px;
-    font-weight: 800;
-    color: #00eaff;
-    letter-spacing: 2px;
-    text-shadow: 0 0 12px #00eaff;
-}
-    
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">WHITE WHALE</div>
-
     <nav>
+        <a href="#hero">White Whale</a>
         <a href="#features">Features</a>
         <a href="#ecosystem">Ecosystem</a>
         <a href="#tokenomics">Tokenomics</a>
@@ -169,17 +191,19 @@ header nav a:hover {
     </nav>
 </header>
 
+<!-- Light Rays -->
+<div class="light-rays"></div>
+
+<!-- Bubble Layer -->
+<div class="bubbles" id="bubbles"></div>
+
 <!-- 3D Whale Canvas -->
 <canvas id="whaleCanvas"></canvas>
 
-<section class="hero">
-    <h2>AI-Driven • Private • Ultra-Fast Blockchain</h2>
+<section class="hero" id="hero">
+    <h1>WHITE WHALE</h1>
+    <h2>AI-DRIVEN • PRIVATE • ULTRA-FAST BLOCKCHAIN</h2>
     <p>Next-generation L1 blockchain combining AI, ZK-privacy, and high-performance consensus.</p>
-
-    <div class="socials">
-        <a href="https://t.me/yourTelegram" target="_blank">Telegram</a>
-        <a href="https://twitter.com/yourTwitter" target="_blank">Twitter</a>
-    </div>
 </section>
 
 <!-- Features -->
@@ -233,12 +257,12 @@ header nav a:hover {
 
 <!-- 3D Whale Script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 <script>
+// =============== 3D WHALE ===============
 const canvas = document.getElementById("whaleCanvas");
 const scene = new THREE.Scene();
-
-const fogColor = new THREE.Color("#00111f");
-scene.fog = new THREE.Fog(fogColor, 10, 120);
+scene.fog = new THREE.Fog(new THREE.Color("#00111f"), 10, 130);
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
 camera.position.z = 60;
@@ -247,22 +271,21 @@ const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 /* Lighting */
-const light = new THREE.PointLight(0x00eaff, 2, 300);
-light.position.set(20, 20, 20);
+const light = new THREE.PointLight(0x00eaff, 2.2, 350);
+light.position.set(20, 25, 20);
 scene.add(light);
 
-/* Whale Body — smooth 3D */
-const whaleGeometry = new THREE.TorusKnotGeometry(12, 2.2, 300, 50);
+/* Whale Body */
+const whaleGeometry = new THREE.TorusKnotGeometry(12, 2.4, 280, 50);
 const whaleMaterial = new THREE.MeshPhongMaterial({
     color: 0x00dfff,
-    emissive: 0x0066aa,
-    shininess: 80,
-    wireframe: false
+    emissive: 0x005a99,
+    shininess: 90
 });
 const whale = new THREE.Mesh(whaleGeometry, whaleMaterial);
 scene.add(whale);
 
-/* Floating Animation */
+/* Animation */
 function animate() {
     requestAnimationFrame(animate);
     whale.rotation.x += 0.002;
@@ -277,6 +300,22 @@ window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 });
+
+// =============== BUBBLES ===============
+const bubbleContainer = document.getElementById("bubbles");
+
+function createBubble() {
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+    bubble.style.left = Math.random() * 100 + "%";
+    bubble.style.animationDuration = 9 + Math.random() * 7 + "s";
+    bubble.style.opacity = 0.4 + Math.random() * 0.6;
+    bubbleContainer.appendChild(bubble);
+
+    setTimeout(() => bubble.remove(), 15000);
+}
+
+setInterval(createBubble, 450);
 </script>
 
 </body>
