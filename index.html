@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>White Whale — Next-Gen AI Blockchain</title>
+<title>White Whale — Premium AI Blockchain</title>
 
 <!-- Premium Font -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -18,136 +18,126 @@ body {
     overflow-x: hidden;
 }
 
-/* Header */
+/* Header — center menu */
 header {
     position: fixed;
     top: 0;
     width: 100%;
     padding: 20px 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.4);
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(8px);
 }
 
-header h1 {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-/* Navbar */
-nav a {
-    margin-left: 26px;
+header nav a {
+    margin: 0 18px;
     text-decoration: none;
-    color: #00d4ff;
+    color: #00eaff;
     font-weight: 600;
+    font-size: 17px;
     transition: 0.3s;
 }
-nav a:hover {
+
+header nav a:hover {
     color: #4dffff;
+    text-shadow: 0 0 12px #00eaff;
 }
 
-/* Hero section */
+/* Hero */
 .hero {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 0 20px;
     position: relative;
+    text-align: center;
+    z-index: 5;
 }
 
 .hero h2 {
-    font-size: 64px;
+    font-size: 68px;
     font-weight: 800;
-    text-shadow: 0 0 15px #00c8ff;
+    letter-spacing: 1px;
+    color: #e8f9ff;
+    text-shadow: 0 0 20px #00baff;
 }
 
 .hero p {
-    max-width: 700px;
-    font-size: 20px;
-    opacity: 0.9;
+    max-width: 750px;
+    font-size: 22px;
+    opacity: 0.95;
 }
 
-/* 3D canvas */
+/* 3D Whale background */
 #whaleCanvas {
-    position: absolute;
+    position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -10;
 }
 
 /* Section */
 .section {
-    padding: 100px 40px;
+    padding: 120px 40px;
     text-align: center;
 }
 
 .section h3 {
-    font-size: 36px;
+    font-size: 40px;
     margin-bottom: 30px;
-    text-shadow: 0 0 10px #00e0ff;
+    text-shadow: 0 0 14px #00e4ff;
 }
 
 /* Tokenomics */
 .tokenomics-table {
-    max-width: 600px;
+    max-width: 650px;
     margin: 40px auto;
-    background: rgba(255,255,255,0.05);
-    border-radius: 12px;
-    padding: 20px 30px;
-    backdrop-filter: blur(5px);
+    background: rgba(255,255,255,0.06);
+    border-radius: 15px;
+    padding: 25px 35px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(0,255,255,0.15);
 }
+
 .tokenomics-table div {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 10px 0;
+    font-size: 18px;
 }
 
-/* Social icons */
+/* Socials */
 .socials {
-    margin-top: 40px;
+    margin-top: 35px;
 }
+
 .socials a {
     margin: 0 15px;
     font-size: 26px;
-    color: #00d9ff;
+    color: #00eaff;
     text-decoration: none;
     transition: 0.3s;
 }
+
 .socials a:hover {
+    transform: scale(1.2);
     color: #4dffff;
-    transform: scale(1.15);
 }
 
 /* Footer */
 .footer {
     text-align: center;
-    padding: 30px;
+    padding: 35px;
     background: rgba(0, 0, 0, 0.6);
-    margin-top: 70px;
-    font-size: 14px;
+    margin-top: 80px;
     opacity: 0.7;
-}
-
-/* Glow Lines */
-.line {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00eaff, transparent);
-    animation: scan 5s infinite linear;
-}
-@keyframes scan {
-    0% { top: 0; opacity: 0; }
-    50% { top: 100%; opacity: 1; }
-    100% { top: 0; opacity: 0; }
 }
 </style>
 </head>
@@ -155,7 +145,6 @@ nav a:hover {
 <body>
 
 <header>
-    <h1>WHITE WHALE</h1>
     <nav>
         <a href="#features">Features</a>
         <a href="#ecosystem">Ecosystem</a>
@@ -168,8 +157,6 @@ nav a:hover {
 
 <!-- 3D Whale Canvas -->
 <canvas id="whaleCanvas"></canvas>
-
-<div class="line"></div>
 
 <section class="hero">
     <h2>AI-Driven • Private • Ultra-Fast Blockchain</h2>
@@ -235,33 +222,48 @@ nav a:hover {
 <script>
 const canvas = document.getElementById("whaleCanvas");
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+
+const fogColor = new THREE.Color("#00111f");
+scene.fog = new THREE.Fog(fogColor, 10, 120);
+
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
+camera.position.z = 60;
+
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-// 3D glowing whale (simple geometry placeholder)
-const geometry = new THREE.TorusKnotGeometry(8, 1.2, 200, 32);
-const material = new THREE.MeshBasicMaterial({ color: 0x00eaff, wireframe: true });
-const whale = new THREE.Mesh(geometry, material);
+/* Lighting */
+const light = new THREE.PointLight(0x00eaff, 2, 300);
+light.position.set(20, 20, 20);
+scene.add(light);
+
+/* Whale Body — smooth 3D */
+const whaleGeometry = new THREE.TorusKnotGeometry(12, 2.2, 300, 50);
+const whaleMaterial = new THREE.MeshPhongMaterial({
+    color: 0x00dfff,
+    emissive: 0x0066aa,
+    shininess: 80,
+    wireframe: false
+});
+const whale = new THREE.Mesh(whaleGeometry, whaleMaterial);
 scene.add(whale);
 
-camera.position.z = 35;
-
+/* Floating Animation */
 function animate() {
     requestAnimationFrame(animate);
-    whale.rotation.x += 0.004;
-    whale.rotation.y += 0.005;
+    whale.rotation.x += 0.002;
+    whale.rotation.y += 0.004;
+    whale.position.y = Math.sin(Date.now() * 0.001) * 2;
     renderer.render(scene, camera);
 }
 animate();
 
 window.addEventListener("resize", () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
 });
 </script>
 
 </body>
 </html>
-
